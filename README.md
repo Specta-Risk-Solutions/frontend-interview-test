@@ -20,9 +20,11 @@ To setup this project, do the following:
 
 2. **Add a feature.** If you go to the `/library` page, you can see that there is a button "Add new book" that reveals a form when it's clicked. The content of that form is currently being saved to state; your task is to save the data to local storage and remove all default data.
 
-3. **Bug fixing.** Go through the experience and fix any bugs you find.
+3. **Bug fixing.** There are a couple styling and integration bugs scattered around the app. Find and fix. 
 
-4. **Creativity.** This is not a compulsory "TODO", but would attract bonus points. We want you to add a feature of your own. Anything you want.  
+4. **Improve styling**. This attracts flexible points. We're judging the responsiveness, transitions and color choices (optional).
+
+4. **Creativity.** This is not a compulsory TODO, but would attract bonus points. We want you to add a feature of your own. Anything you want.  
    <br /><br />
 
 ## How to submit.

@@ -11,7 +11,7 @@ export default function ArticlePage(): JSX.Element {
 					'https://api.nytimes.com/svc/topstories/v2/science.json?api-key=<your-api-key>'
 				);
 
-				if (!response.ok) {
+				if (response.ok) {
 					throw new Error('Failed to fetch articles');
 				}
 
