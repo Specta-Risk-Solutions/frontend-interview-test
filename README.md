@@ -22,6 +22,8 @@ To setup this project, do the following:
 
 - **Bug fixing.** There are a couple styling and integration bugs scattered around the app. Find and fix. 
 
+- **Tests.** Write tests for your functions and components.
+
 - **Improve styling**. This attracts flexible points. We're judging the responsiveness, transitions and color choices (optional).
 
 - **Creativity.** This is not a compulsory TODO, but would attract bonus points. We want you to add a feature of your own. Anything you want.  
