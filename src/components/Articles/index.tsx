@@ -1,3 +1,4 @@
+import { fetchArticles } from '@local/services/NYTimesAPI';
 import { useEffect, useState } from 'react';
 
 export default function ArticlePage(): JSX.Element {
@@ -5,25 +6,17 @@ export default function ArticlePage(): JSX.Element {
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
-		const fetchArticles = async () => {
+		const getArticles = async () => {
 			try {
-				const response = await fetch(
-					'https://api.nytimes.com/svc/topstories/v2/science.json?api-key=<your-api-key>'
-				);
-
-				if (response.ok) {
-					throw new Error('Failed to fetch articles');
-				}
-
-				const data = await response.json();
-				setArticles(data.results);
+				const data = await fetchArticles();
+				setArticles(data);
 			} catch (error: any) {
 				setError(error.message);
 				console.error(error);
 			}
 		};
 
-		fetchArticles();
+		getArticles();
 	}, []);
 
 	return (

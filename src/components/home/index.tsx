@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 // import book1 from "../assets/book1.jpg"
-import book2 from '../assets/book2.jpg';
+import book2 from '@local/assets/book2.jpg';
+import { fetchBookList } from '@local/services/NYTimesAPI';
 
 interface BookList {
 	[key: string]: any;
@@ -11,18 +12,9 @@ export default function BookListComponent(): JSX.Element {
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
-		const fetchBookList = async () => {
-			const apiKey = '<your-api-key>';
-			const apiUrl = `https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json?api-key=${apiKey}`;
-
+		const getBooks = async () => {
 			try {
-				const response = await fetch(apiUrl);
-
-				if (!response.ok) {
-					throw new Error('Failed to fetch book list');
-				}
-
-				const data: BookList = await response.json();
+				const data = await fetchBookList() as BookList;
 				setBookList(data);
 			} catch (error: any) {
 				setError(error.message);
@@ -30,7 +22,7 @@ export default function BookListComponent(): JSX.Element {
 			}
 		};
 
-		fetchBookList();
+		getBooks();
 	}, []);
 
 	return (
