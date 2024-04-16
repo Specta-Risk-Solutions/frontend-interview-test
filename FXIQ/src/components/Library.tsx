@@ -1,4 +1,5 @@
 import  { useState } from 'react';
+import useDataFetch from '../hooks/useDataFetch';
 
 const initialBook = {
   name: '',
@@ -8,38 +9,7 @@ const initialBook = {
 };
 
 export default function LibraryPage() {
-  const [books, setBooks] = useState([
-    {
-      name: 'To Kill a Mockingbird',
-      likes: 150,
-      dateSaved: '2024-03-15',
-      percentageRead: 75,
-    },
-    {
-      name: '1984',
-      likes: 200,
-      dateSaved: '2024-02-20',
-      percentageRead: 100,
-    },
-    {
-      name: 'Pride and Prejudice',
-      likes: 100,
-      dateSaved: '2024-01-10',
-      percentageRead: 50,
-    },
-    {
-        name: '1984',
-        likes: 200,
-        dateSaved: '2024-02-20',
-        percentageRead: 100,
-      },
-      {
-        name: 'Pride and Prejudice',
-        likes: 100,
-        dateSaved: '2024-01-10',
-        percentageRead: 50,
-      },
-  ]);
+  const { data: books, loading: booksLoading, error } = useDataFetch(undefined, 'books')
 
   const [newBook, setNewBook] = useState(initialBook);
   const [showForm, setShowForm] = useState(false);
@@ -50,7 +20,7 @@ export default function LibraryPage() {
   };
 
   const handleAddBook = () => {
-    setBooks([...books, newBook]);
+    // setBooks([...books, newBook]);
     setNewBook(initialBook);
     setShowForm(false);
   };
@@ -107,16 +77,16 @@ export default function LibraryPage() {
           </button>
         </div>
       )}
-      <div className="grid md:grid-cols-3 grid-cols-1 gap-3">
-        {books.map((book, index) => (
-          <div key={index} className="bg-shade hover:bg-mustard hover:text-black rounded-xl p-4 mb-4">
-            <h2 className=" text-sm md:text-lg font-bold mb-2">{book.name}</h2>
-            <p>Likes (Reviews): {book.likes}</p>
-            <p>Date Saved: {book.dateSaved}</p>
-            <p>Percentage Read: {book.percentageRead}%</p>
-          </div>
-        ))}
-      </div>
+      {books ? (<div className="grid md:grid-cols-3 grid-cols-1 gap-3">
+          {books.map((book:any, index: number) => (
+            <div key={index} className="bg-shade hover:bg-mustard hover:text-black rounded-xl p-4 mb-4">
+              <h2 className=" text-sm md:text-lg font-bold mb-2">{book.name}</h2>
+              <p>Likes (Reviews): {book.likes}</p>
+              <p>Date Saved: {book.dateSaved}</p>
+              <p>Percentage Read: {book.percentageRead}%</p>
+            </div>
+          ))}
+      </div>): <div>No books in the library at the moment</div>}
     </div>
   );
 }
