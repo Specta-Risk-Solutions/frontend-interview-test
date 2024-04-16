@@ -27,15 +27,18 @@ import SideBar from "./components/SideBar";
 function App() {
   return (
     <>
-      <div className="flex bg-primary max-h-min justify-between">
+      <div className="flex bg-primary max-h-screen overflow-y-hidden justify-between">
         <SideBar />
 
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/artfeeds" element={<ArtsFeedComponent />} />
-          <Route path="/articles" element={<ArticlePage />} />
-          <Route path="/library" element={<LibraryPage />} />
-        </Routes>
+        <div className="overflow-y-scroll w-full">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/artfeeds" element={<ArtsFeedComponent />} />
+            <Route path="/articles" element={<ArticlePage />} />
+            <Route path="/library" element={<LibraryPage />} />
+          </Routes>
+        </div>
+        
 
         <Trends />
       </div>

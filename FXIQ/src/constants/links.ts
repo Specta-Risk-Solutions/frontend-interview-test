@@ -5,7 +5,7 @@ import { PiSelectionForegroundFill } from "react-icons/pi";
 
 export const LinkItems = [
     {
-        url: '',
+        url: '/',
         name: 'Home',
         icon: IoMdHome,
     },

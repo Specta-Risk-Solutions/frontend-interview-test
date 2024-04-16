@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { FaUserCircle } from "react-icons/fa";
-import { FaArrowRight } from "react-icons/fa6";
-import { IoIosSearch, IoMdHome, IoIosNotificationsOutline, IoMdSettings, IoIosLogOut } from "react-icons/io";
-import { IoPeople, IoChatbubbleSharp } from "react-icons/io5";
+import { IoIosSearch, IoMdSettings, IoIosLogOut } from "react-icons/io";
 import { MdOutlineMenu } from "react-icons/md";
-import { PiSelectionForegroundFill } from "react-icons/pi";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { LinkItems, ActionLinks } from "../constants/links";
 
 export default function SideBar() { 
+    const location = useLocation();
+
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const toggleMenu = () => {
         setIsMenuOpen(!isMenuOpen);
@@ -35,7 +34,7 @@ export default function SideBar() {
                 {LinkItems.map(link => (
                     <Link key={link.name} to={link.url}>
                         {" "}
-                        <div className="flex items-center gap-4 hover:bg-mustard px-2 py-2 rounded-xl transition-all">
+                        <div className={`flex items-center gap-4 hover:bg-mustard px-2 py-2 rounded-xl transition-all ${location.pathname === link.url && 'bg-mustard px-2 py-2 rounded-xl'}`}>
                             {" "}
                             <link.icon className=" text-xl" /> <p className="hidden md:block">{link.name} </p>{" "}
                         </div>
@@ -46,7 +45,7 @@ export default function SideBar() {
             <div className="text-white text-sm hidden md:block ">
                 <ul className=" flex flex-col">
                     {ActionLinks.map(link => (
-                        <Link to={link.url}>
+                        <Link key={link.name} to={link.url}>
                             {" "}
                             <li className="flex items-center justify-between rounded-2xl hover:bg-mustard px-2 py-2">
                                 { link.name }{" "}

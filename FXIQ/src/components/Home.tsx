@@ -10,7 +10,7 @@ export default function BookListComponent(): JSX.Element {
 	const { data: bookList, loading: bookLoading, error } = useDataFetch(url)
 
 	return (
-		<div className='bg-primary text-white md:p-8'>
+		<div className='bg-primary text-white md:p-8 overflow-scroll'>
 			<img src={book2} className='w-full md:h-40 h-14  object-cover' />
 			<h1 className='md:text-3xl text-base text-mustard font-bold  my-5'>
 				NYTimes Best Sellers - Hardcover Fiction
