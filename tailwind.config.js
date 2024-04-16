@@ -1,20 +1,46 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx}",
-  ],
-  theme: {
-    extend: {
-      colors:{
-        primary : "#222222",
-        mustard: "#C3CC5A",
-        shade:"#303030",
-        darkbg:"#222222",
-        modal : "rgba(0, 0, 0, 0.5)"
-      },
+    content: [
+        "./index.html",
+        "./src/**/*.{js,ts,jsx,tsx}",
+    ],
+    theme: {
+        extend: {
+            animation: {
+                "spin-fast": "spin .3s linear infinite"
+            },
+            colors: {
+                "dim": "#6b7280",
+                "d-dim": "#d1d5db"
+            },
+        },
     },
-  },
-  plugins: [],
+    daisyui: {
+        themes: [{
+            light: {
+                "base-100": "#fff",
+                "base-200": "#f0f2f4",
+                "base-content": "#000",
+                "primary": "#8a2be2",
+                "primary-content": "#fff",
+                "secondary": "#E2A421",
+                "secondary-content": "#000"
+            },
+            dark: {
+                "base-100": "#1e1e1e",
+                "base-200": "#2a2a2a",
+                "base-300": "#171717",
+                "base-content": "#fff",
+                "primary": "#00ecff",
+                "primary-content": "#fff",
+                "secondary": "#E2A421",
+                "secondary-content": "#fff",
+            },
+        }]
+    },
+    plugins: [
+        require("tailwind-scrollbar")({ nocompatible: true }),
+        require("daisyui")
+    ],
 }
 

@@ -39,72 +39,118 @@ export default function LibraryPage() {
     };
 
     return (
-        <div className="container text-white mx-auto">
-            <div className='flex items-center justify-between px-3'>
-                <h1 className="md:text-3xl  font-bold mt-8 mb-4">My Library</h1>
-                <button className="bg-mustard text-sm text-black font-semibold mt-3 md:px-4 md:py-2 py-1 px-2 rounded" onClick={() => setShowForm(true)}>
+        <>
+            <div className='flex items-center justify-between px-3 pb-5'>
+                <h1 className="md:text-3xl font-bold mb-4 text-primary">My Library</h1>
+                <button className="btn" onClick={() => setShowForm(true)}>
                     Add New Book
                 </button>
             </div>
             {showForm && (
-                <div className="py-5 ">
+                <div className="py-5">
                     <h2 className="md:text-lg text-sm font-bold mb-2">Add New Book</h2>
-                    <div className='py-2  grid grid-cols-1 md:grid-cols-2 gap-3'>
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="Book Name"
-                            value={newBook.name}
-                            onChange={handleInputChange}
-                            className=" bg-shade   border-mustard md:py-3 md:px-3 px-2 py-2 border-b-2"
-                        />
-                        {errors.name && <div className="error">{errors.name}</div>}
-                        
-                        <input
-                            type="number"
-                            name="likes"
-                            placeholder="no of Likes"
-                            value={newBook.likes}
-                            onChange={handleInputChange}
-                            className=" bg-shade  border-mustard md:py-3 md:px-3 px-2 py-2 border-b-2"
+                    <div className='py-2 grid grid-cols-1 md:grid-cols-2 gap-3'>
+                        <label className="form-control w-full">
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Book Name"
+                                value={newBook.name}
+                                onChange={handleInputChange}
+                                className="input input-bordered w-full"
+                            />
+                            <div className="label">
+                                {errors.name && (
+                                    <span className="label-text-alt text-error">
+                                        {errors.name}
+                                    </span>
+                                )}
+                            </div>
+                        </label>
 
-                        />
-                        {errors.likes && <div className="error">{errors.likes}</div>}
+                        <label className="form-control w-full">
+                            <input
+                                type="number"
+                                name="likes"
+                                min={0}
+                                placeholder="no of Likes"
+                                value={newBook.likes}
+                                onChange={handleInputChange}
+                                className="input input-bordered w-full"
+                            />
+                            <div className="label">
+                                {errors.likes && (
+                                    <span className="label-text-alt text-error">
+                                        {errors.likes}
+                                    </span>
+                                )}
+                            </div>
+                        </label>
 
-                        <input
-                            type="date"
-                            name="dateSaved"
-                            value={newBook.dateSaved}
-                            onChange={handleInputChange}
-                            className=" bg-shade  border-mustard md:py-3 md:px-3 px-2 py-2 border-b-2"
+                        <label className="form-control w-full">
+                            <input
+                                type="date"
+                                name="dateSaved"
+                                value={newBook.dateSaved}
+                                onChange={handleInputChange}
+                                className="input input-bordered w-full"
+                            />
+                            <div className="label">
+                                {errors.dateSaved && (
+                                    <span className="label-text-alt text-error">
+                                        {errors.dateSaved}
+                                    </span>
+                                )}
+                            </div>
+                        </label>
 
-                        />
-                        {errors.dateSaved && <div className="error">{errors.dateSaved}</div>}
-                        <input
-                            type="number"
-                            name="percentageRead"
-                            placeholder="Percentage Read"
-                            value={newBook.percentageRead}
-                            onChange={handleInputChange}
-                            className=" bg-shade  border-mustard md:py-3 md:px-3 px-2 py-2 border-b-2"
-                        />
-                        {errors.percentageRead && <div className="error">{errors.percentageRead}</div>}
+                        <label className="form-control w-full">
+                            <input
+                                type="number"
+                                name="percentageRead"
+                                min={0}
+                                placeholder="Percentage Read"
+                                value={newBook.percentageRead}
+                                onChange={handleInputChange}
+                                className="input input-bordered w-full"
+                            />
+                            <div className="label">
+                                {errors.percentageRead && (
+                                    <span className="label-text-alt text-error">
+                                        {errors.percentageRead}
+                                    </span>
+                                )}
+                            </div>
+                        </label>
+
                     </div>
-                    <button className="bg-white text-sm md:text-base text-black font-semibold hover:bg-mustard hover:text-primary  px-4 py-2 rounded" onClick={handleAddBook}>
-                        Add Book
-                    </button>
+
+                    <div className='w-full text-center'>
+                        <button className="btn btn-primary rounded-2xl w-full max-w-sm" onClick={handleAddBook}>
+                            Add Book
+                        </button>
+                    </div>
+
+                    <hr className="my-3 border-d-dim dark:border-dim" />
+
                 </div>
             )}
-            <div className="grid md:grid-cols-3 grid-cols-1 gap-3">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-3">
                 {books.map((book, index) => (
-                    <div key={index} className="bg-shade hover:bg-mustard hover:text-black rounded-xl p-4 mb-4">
-                        <h2 className=" text-sm md:text-lg font-bold mb-2">{book.name}</h2>
-                        <p>Likes (Reviews): {book.likes}</p>
-                        <p>Date Saved: {book.dateSaved}</p>
-                        <p>Percentage Read: {book.percentageRead}%</p>
+                    <div key={index} className="bg-shade hover:bg-primary hover:bg-opacity-5 rounded-xl p-4 mb-4 border border-d-dim dark:border-dim">
+                        <h2 className=" text-sm md:text-lg font-bold mb-2 text-primary">{book.name}</h2>
+                        <p className='font-light'>
+                            <span className='font-normal'>Likes (Reviews):</span> {book.likes}
+                        </p>
+                        <p className='font-light'>
+                            <span className='font-normal'>Date Saved:</span> {book.dateSaved}
+                        </p>
+                        <p className='font-light'>
+                            <span className='font-normal'>Percentage Read:</span> {book.percentageRead}%
+                        </p>
                     </div>
                 ))}
             </div>
-        </div>
+        </>
     );
 }
