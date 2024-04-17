@@ -1,5 +1,5 @@
 import { getBooks, saveBooks } from '@local/utils/localStorage';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 
 const initialBook = {
     name: '',
@@ -22,9 +22,10 @@ export default function LibraryPage() {
         setErrors({ ...errors, [name]: value ? '' : `${name} is required` });
     };
 
-    const handleAddBook = () => {
+    const handleAddBook = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
         const { name, likes, dateSaved, percentageRead } = newBook;
-        if (!name || !likes || !dateSaved || !percentageRead) {
+        if (!name || likes < 0 || !dateSaved || percentageRead < 0) {
             setErrors({
                 name: name ? '' : 'Name is required',
                 likes: likes ? '' : 'Likes is required',
@@ -47,7 +48,7 @@ export default function LibraryPage() {
                 </button>
             </div>
             {showForm && (
-                <div className="py-5">
+                <form onSubmit={handleAddBook} className="py-5">
                     <h2 className="md:text-lg text-sm font-bold mb-2">Add New Book</h2>
                     <div className='py-2 grid grid-cols-1 md:grid-cols-2 gap-3'>
                         <label className="form-control w-full">
@@ -87,13 +88,15 @@ export default function LibraryPage() {
                             </div>
                         </label>
 
-                        <label className="form-control w-full">
+                        <label htmlFor='date' className="form-control w-full">
                             <input
                                 type="date"
                                 name="dateSaved"
                                 value={newBook.dateSaved}
                                 onChange={handleInputChange}
                                 className="input input-bordered w-full"
+                                aria-label="date"
+                                id="date"
                             />
                             <div className="label">
                                 {errors.dateSaved && (
@@ -126,14 +129,14 @@ export default function LibraryPage() {
                     </div>
 
                     <div className='w-full text-center'>
-                        <button className="btn btn-primary rounded-2xl w-full max-w-sm" onClick={handleAddBook}>
+                        <button type='submit' className="btn btn-primary rounded-2xl w-full max-w-sm">
                             Add Book
                         </button>
                     </div>
 
                     <hr className="my-3 border-d-dim dark:border-dim" />
 
-                </div>
+                </form>
             )}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-3">
                 {books.map((book, index) => (

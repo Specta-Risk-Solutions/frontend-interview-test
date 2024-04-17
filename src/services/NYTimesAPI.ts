@@ -1,5 +1,5 @@
 
-const key = import.meta.env.VITE_NYTIMES_API_KEY;
+const key = process.env.VITE_NYTIMES_API_KEY;
 
 export async function fetchArticles() {
     const response = await fetch(

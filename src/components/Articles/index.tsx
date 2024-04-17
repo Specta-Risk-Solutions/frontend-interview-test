@@ -12,7 +12,6 @@ export default function ArticlePage(): JSX.Element {
 				setArticles(data);
 			} catch (error: any) {
 				setError(error.message);
-				console.error(error);
 			}
 		};
 
