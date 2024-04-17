@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { IResponse } from "../interfaces/response.interface";
-import { IAddBook } from "../interfaces/book.interface";
 
-export default function useDataFetch(url?: string, localStorageKey?: string) { 
+export default function useRequestProcessor(url?: string, localStorageKey?: string) { 
 
   const [data, setData] = useState<IResponse | any>();
   const [loading, setLoading] = useState(false);
@@ -15,18 +14,15 @@ export default function useDataFetch(url?: string, localStorageKey?: string) {
       try {
         setLoading(true);
         const response = await fetch(url);
-        console.log(response)
 
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
         
         const data: IResponse | any = await response.json();
-        console.log(data)
         setData(data);
         setError('');
       } catch (error) {
-        console.log(error)
         // setError(error?.message);
       } finally {
         setLoading(false);
@@ -94,3 +90,5 @@ export default function useDataFetch(url?: string, localStorageKey?: string) {
     setError
   }
 }
+
+

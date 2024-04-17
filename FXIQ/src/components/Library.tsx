@@ -1,7 +1,7 @@
 import  { useState } from 'react';
-import useDataFetch from '../hooks/useDataFetch';
 import { IAddBook } from '../interfaces/book.interface';
 import ErrorDisplay from './ErrorDisplay';
+import useRequestProcessor from '../hooks/useRequestProcessor';
 
 const initialBook = {
   name: '',
@@ -11,7 +11,14 @@ const initialBook = {
 };
 
 export default function LibraryPage() {
-  const { data: books, loading: booksLoading, error, showForm, setError, setShowForm, setData, createData } = useDataFetch(undefined, 'books')
+  const {
+    data: books,
+    loading: booksLoading,
+    error, showForm,
+    setError,
+    setShowForm,
+    createData
+  } = useRequestProcessor(undefined, 'books')
 
   const [newBook, setNewBook] = useState<IAddBook>(initialBook);
 

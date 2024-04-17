@@ -1,13 +1,13 @@
 import book2 from '../assets/book2.jpg';
-import useDataFetch from '../hooks/useDataFetch';
 import { API_KEY, BASE_URL } from '../constants/url-details';
 import Book from './Book';
 import Loader from './Loader';
 import ErrorDisplay from './ErrorDisplay';
+import useRequestProcessor from '../hooks/useRequestProcessor';
 
 export default function BookListComponent(): JSX.Element {
 	const url = `${BASE_URL}/svc/books/v3/lists/current/hardcover-fiction.json?api-key=${API_KEY}`
-	const { data: bookList, loading: bookLoading, error } = useDataFetch(url)
+	const { data: bookList, loading: bookLoading, error } = useRequestProcessor(url)
 
 	return (
 		<div className='bg-primary text-white md:p-8'>
