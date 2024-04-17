@@ -19,5 +19,5 @@ body, html {
 }
 
 .btn-primary {
-    @apply  bg-opacity-15 hover:bg-opacity-40
+    @apply  dark:bg-opacity-15 bg-opacity-70 dark:hover:bg-opacity-40 hover:bg-opacity-50
 }

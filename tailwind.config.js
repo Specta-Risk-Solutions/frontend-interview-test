@@ -21,7 +21,7 @@ export default {
                 "base-100": "#fff",
                 "base-200": "#f0f2f4",
                 "base-content": "#000",
-                "primary": "#8a2be2",
+                "primary": "#e22e2e",
                 "primary-content": "#fff",
                 "secondary": "#E2A421",
                 "secondary-content": "#000"

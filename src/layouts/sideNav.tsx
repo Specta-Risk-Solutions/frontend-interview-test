@@ -19,7 +19,7 @@ export default function SideNav({ isOpen, toggle }: { isOpen: boolean, toggle: (
     }
 
     return (
-        <div onClick={closeNav} className={clsx("md:flex text-white md:flex-col h-screen top-0 z-10",
+        <div onClick={closeNav} className={clsx("md:flex md:flex-col h-screen top-0 z-10",
             { "fixed bottom-0 left-0 right-0 bg-transparent backdrop-blur-[2px]": isOpen },
             { " w-1/5 md:w-1/4 sticky": !isOpen })}>
             <div className={clsx("h-screen py-5 px-5 bg-base-200", { "w-max pt-16": isOpen })}>
