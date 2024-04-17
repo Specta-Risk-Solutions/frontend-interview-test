@@ -103,27 +103,27 @@ export default function SideNav({ isOpen, toggle }: { isOpen: boolean, toggle: (
 
                 <hr className="my-3 hidden md:block border-d-dim dark:border-dim" />
 
-                <div className="text-white flex flex-col gap-3 md:gap-0">
-                    <Link to="settings">
-                        {" "}
-                        <li className="flex  gap-2 items-center rounded-2xl hover:bg-mustard px-2 py-2">
-                            {" "}
-                            <IoMdSettings />
-                            <p className={clsx("md:block", { "hidden": !isOpen })}> Setting </p>
-                        </li>{" "}
-                    </Link>
-                    <Link to="profile">
-                        {" "}
-                        <li className="flex gap-2 items-center rounded-2xl hover:bg-mustard px-2 py-2">
-                            {" "}
-                            <FaUserCircle />
-                            <p className={clsx("md:block", { "hidden": !isOpen })}>Saka Buka </p>{" "}
-                        </li>{" "}
-                    </Link>
-                    <button className="flex gap-2 items-center rounded-2xl hover:bg-mustard px-2 py-2">
-                        <TbLogout className="hover:text-mustard text-2xl font-bold" />{" "}
-                        <p className={clsx("md:block", { "hidden": !isOpen })}>Logout </p>{" "}
-                    </button>
+                <div className="flex flex-col gap-3 md:gap-0">
+                    <ul className="menu gap-4 rounded-box px-0">
+                        <li>
+                            <Link to="settings">
+                                <IoMdSettings className="ml-2 md:text-2xl text-lg" />
+                                <p className={clsx("md:block", { "hidden": !isOpen })}> Setting </p>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="profile">
+                                <FaUserCircle className="ml-2 md:text-2xl text-lg" />
+                                <p className={clsx("md:block", { "hidden": !isOpen })}>Saka Buka </p>{" "}
+                            </Link>
+                        </li>
+                        <li>
+                            <button>
+                                <TbLogout className="ml-2 md:text-2xl text-lg" />
+                                <p className={clsx("md:block", { "hidden": !isOpen })}>Logout </p>{" "}
+                            </button>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>

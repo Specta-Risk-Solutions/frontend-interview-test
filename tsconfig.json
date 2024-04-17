@@ -27,6 +27,7 @@
       "@local/assets/*": ["./src/assets/*"],
       "@local/services/*": ["./src/services/*"],
       "@local/utils/*": ["./src/utils/*"],
+      "@local/test/*": ["./src/__test__/*"]
     }
   },
   "include": ["src", "tests"],

@@ -1,4 +1,4 @@
-import { http, HttpResponse } from 'msw';
+import { http, HttpResponse } from "msw";
 
 const articles = {
     status: "OK",
@@ -78,6 +78,7 @@ const articles = {
     ]
 }
 
+
 const books = {
     status: "OK",
     copyright: "Copyright (c) 2024 The New York Times Company.  All Rights Reserved.",
@@ -96,16 +97,41 @@ const books = {
         updated: "WEEKLY",
         books: [
             {
+                age_group: "",
+                amazon_product_url: "https://www.amazon.com/dp/1250178630?tag=thenewyorktim-20",
+                article_chapter_link: "",
+                asterisk: 0,
+                author: "Kristin Hannah",
+                book_image: "https://storage.googleapis.com/du-prd/books/images/9781250178633.jpg",
+                book_image_height: 500,
+                book_image_width: 333,
+                book_review_link: "",
+                book_uri: "nyt://book/9ce735af-71cf-5ff3-a367-43ee07e3fdd7",
+                buy_links: [
+                    { name: "Amazon", url: "https://www.amazon.com/dp/1250178630?tag=thenewyorktim-20" },
+                    // Add more buy links here if needed
+                ],
+                contributor: "by Kristin Hannah",
+                contributor_note: "",
+                dagger: 0,
+                description: "In 1965, a nursing student follows her brother to serve during the Vietnam War and returns to a divided America.",
+                first_chapter_link: "",
+                isbns: [
+                    { isbn10: "1250178630", isbn13: "9781250178633" },
+                    { isbn10: "1250178657", isbn13: "9781250178657" },
+                    // Add more ISBNs here if needed
+                ],
+                price: "0.00",
+                primary_isbn10: "1250178630",
+                primary_isbn13: "9781250178633",
+                publisher: "St. Martin's",
                 rank: 1,
                 rank_last_week: 1,
+                sunday_review_link: "",
+                title: "THE WOMEN",
                 weeks_on_list: 9,
-                asterisk: 0,
-                dagger: 0,
-                primary_isbn10: "1250178630",
-                primary_isbn13: "9781250178634",
-                publisher: "Flatiron",
-                description: "A young woman’s life is changed when an en"
             },
+            // Add more books here if needed
         ],
         corrections: []
     }
@@ -150,12 +176,22 @@ const artsFeed = `
   </channel>
 </rss>
 `
+export type Article = typeof articles.results;
+export type Book = typeof books.results;
+export type ArtFeed = {
+    title: string | null | undefined,
+    link?: string | null
+    description?: string | null,
+    pubDate?: string | null,
+    category?: string | null,
+    image?: string | null,
+}[]
 
 export const handlers = [
-    http.get('https://api.nytimes.com/svc/topstories/v2/science.json', ({ request }) => {
+    http.get("https://api.nytimes.com/svc/topstories/v2/science.json", ({ request }) => {
         const url = new URL(request.url)
 
-        const apiKey = url.searchParams.get('api-key')
+        const apiKey = url.searchParams.get("api-key")
 
         if (!apiKey) {
             return new HttpResponse(null, { status: 400 })
@@ -164,14 +200,14 @@ export const handlers = [
         return HttpResponse.json(articles, { status: 200 })
     }),
 
-    http.get('https://rss.nytimes.com/services/xml/rss/nyt/Arts.xml', ({ }) => {
+    http.get("https://rss.nytimes.com/services/xml/rss/nyt/Arts.xml", () => {
         return HttpResponse.xml(artsFeed, { status: 200 })
     }),
 
-    http.get('https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json', ({ request }) => {
+    http.get("https://api.nytimes.com/svc/books/v3/lists/current/hardcover-fiction.json", ({ request }) => {
         const url = new URL(request.url)
 
-        const apiKey = url.searchParams.get('api-key')
+        const apiKey = url.searchParams.get("api-key")
 
         if (!apiKey) {
             return new HttpResponse(null, { status: 400 })

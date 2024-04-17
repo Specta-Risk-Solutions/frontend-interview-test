@@ -1,11 +1,11 @@
-import { getBooks, saveBooks } from '@local/utils/localStorage';
-import { FormEvent, useState } from 'react';
+import { getBooks, saveBooks } from "@local/utils/localStorage";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { MdDelete } from "react-icons/md";
 
 const initialBook = {
-    name: '',
+    name: "",
     likes: 0,
-    dateSaved: '',
+    dateSaved: "",
     percentageRead: 0,
 };
 
@@ -15,12 +15,12 @@ export default function LibraryPage() {
     const [newBook, setNewBook] = useState(initialBook);
     const [showForm, setShowForm] = useState(false);
 
-    const [errors, setErrors] = useState({ name: '', likes: '', dateSaved: '', percentageRead: '' });
+    const [errors, setErrors] = useState({ name: "", likes: "", dateSaved: "", percentageRead: "" });
 
-    const handleInputChange = (e: any) => {
+    const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setNewBook({ ...newBook, [name]: value });
-        setErrors({ ...errors, [name]: value ? '' : `${name} is required` });
+        setErrors({ ...errors, [name]: value ? "" : `${name} is required` });
     };
 
     const handleAddBook = (e: FormEvent<HTMLFormElement>) => {
@@ -28,10 +28,10 @@ export default function LibraryPage() {
         const { name, likes, dateSaved, percentageRead } = newBook;
         if (!name || likes < 0 || !dateSaved || percentageRead < 0) {
             setErrors({
-                name: name ? '' : 'Name is required',
-                likes: likes ? '' : 'Likes is required',
-                dateSaved: dateSaved ? '' : 'Date Saved is required',
-                percentageRead: percentageRead ? '' : 'Percentage Read is required',
+                name: name ? "" : "Name is required",
+                likes: likes ? "" : "Likes is required",
+                dateSaved: dateSaved ? "" : "Date Saved is required",
+                percentageRead: percentageRead ? "" : "Percentage Read is required",
             });
             return;
         }
