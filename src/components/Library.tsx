@@ -2,13 +2,7 @@ import  { useState } from 'react';
 import { IAddBook } from '../interfaces/book.interface';
 import ErrorDisplay from './ErrorDisplay';
 import useRequestProcessor from '../hooks/useRequestProcessor';
-
-const initialBook = {
-  name: '',
-  likes: 0,
-  dateSaved: '',
-  percentageRead: 0,
-};
+import BookForm from './BookForm';
 
 export default function LibraryPage() {
   const {
@@ -16,35 +10,30 @@ export default function LibraryPage() {
     error, showForm,
     setError,
     setShowForm,
-    createData
+    createData,
+    updateData
   } = useRequestProcessor(undefined, 'books')
 
-  const [newBook, setNewBook] = useState<IAddBook>(initialBook);
+  const [isCreating, setIsCreating] = useState(true)
+  const [initialBook, setInitialBook] = useState<IAddBook>({
+    name: '',
+    likes: 0,
+    dateSaved: '',
+    percentageRead: 0,
+  })
 
-  const handleInputChange = (e: any) => {
-    const { name, value } = e.target;
-    setNewBook({ ...newBook, [name]: value });
-  };
+  const handleBookEditCreate = (bookData: any) => {
+    if (isCreating) {
+      createData(bookData)
+    } else {
+      updateData(bookData)
+    }
+  }
 
-  const handleNewBookCreation = () => {
-    if (!newBook['name']) {
-      setError('Book name is required!')
-      return;
-    }
-    if (!newBook['dateSaved']) {
-      setError('Date is required!')
-      return;
-    }
-    if (newBook['likes'] <= 0) {
-      setError('Likes must be positive!')
-      return;
-    }
-    if (newBook['percentageRead'] <= 0) {
-      setError('Percentage read must be positive!')
-      return;
-    }
-
-    createData(newBook)
+  const handleBookEdit = (book: IAddBook) => {
+    setIsCreating(false)
+    setInitialBook(book)
+    setShowForm(true)
   }
 
   return (
@@ -56,66 +45,21 @@ export default function LibraryPage() {
       </button>
       </div>
       {showForm && (
-        <div className="py-5 ">
-          <h2 className="md:text-lg text-sm font-bold mb-2">Add New Book</h2>
-          <div className='py-2  grid grid-cols-1 md:grid-cols-2 gap-3'>
-            <input
-              type="text"
-              name="name"
-              id='name-field'
-              placeholder="Book Name"
-              value={newBook.name}
-              onChange={handleInputChange}
-              className=" bg-shade   border-mustard md:py-3 md:px-3 px-2 py-2 border-b-2"
-            />
-            <input
-              type="number"
-              name="likes"
-              id='like-field'
-              placeholder="no of Likes"
-              value={newBook.likes}
-              onChange={handleInputChange}
-              className=" bg-shade  border-mustard md:py-3 md:px-3 px-2 py-2 border-b-2"
-
-            />
-            <input
-              type="date"
-              name="dateSaved"
-              id='date-field'
-              value={newBook.dateSaved}
-              onChange={handleInputChange}
-              className=" bg-shade  border-mustard md:py-3 md:px-3 px-2 py-2 border-b-2"
-
-            />
-            <input
-              type="number"
-              name="percentageRead"
-              id='percentage-field'
-              placeholder="Percentage Read"
-              value={newBook.percentageRead}
-              onChange={handleInputChange}
-              className=" bg-shade  border-mustard md:py-3 md:px-3 px-2 py-2 border-b-2"
-            />
-
-            {error && <ErrorDisplay error={error} />}
-          </div>
-          <button id='add-btn' className="bg-white text-sm md:text-base text-black font-semibold hover:bg-mustard hover:text-primary  px-4 py-2 rounded"
-            onClick={(e) => {
-              e.preventDefault()
-              handleNewBookCreation()
-            }}
-          >
-            Add Book
-          </button>
-        </div>
+        <BookForm onSubmit={handleBookEditCreate} setError={setError} initialFormData={initialBook} error={error} />
       )}
       {books ? (<div className="grid md:grid-cols-3 grid-cols-1 gap-3">
           {books.map((book:any, index: number) => (
-            <div key={index} className="bg-shade hover:bg-mustard hover:text-black rounded-xl p-4 mb-4 transition-all">
-              <h2 className=" text-sm md:text-lg font-bold mb-2">{book.name}</h2>
-              <p>Likes (Reviews): {book.likes}</p>
-              <p>Date Saved: {book.dateSaved}</p>
-              <p>Percentage Read: {book.percentageRead}%</p>
+            <div key={index} className="book bg-shade hover:bg-mustard hover:text-black rounded-xl p-4 mb-4 transition-all">
+              <div className="controls flex items-center justify-end gap-2 mb-5">
+                <button onClick={() => handleBookEdit(book)} className='bg-yellow-200 w-16 p-1 text-black rounded-md'>Edit</button>
+                <button className='bg-red-600 w-16 p-1 rounded-md'>Delete</button>
+              </div>
+              <div>
+                <h2 className=" text-sm md:text-lg font-bold mb-2">{book.name}</h2>
+                <p>Likes (Reviews): {book.likes}</p>
+                <p>Date Saved: {book.dateSaved}</p>
+                <p>Percentage Read: {book.percentageRead}%</p>
+              </div>
             </div>
           ))}
       </div>): <div>No books in the library at the moment</div>}

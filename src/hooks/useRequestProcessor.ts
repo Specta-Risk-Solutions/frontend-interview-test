@@ -77,6 +77,53 @@ export default function useRequestProcessor(url?: string, localStorageKey?: stri
     
   };
 
+  const updateData = async (data: any) => {
+
+    if (url) {
+      try {
+        setLoading(true);
+        const response = await fetch(url, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data),
+        });
+        if (!response.ok) {
+          const errorRes: IResponse = await response.json()
+          throw new Error(errorRes?.errors?.[0]);
+        }
+        getData();
+      } catch (error: any) {
+        setError(error.message);
+      } finally {
+        setLoading(false);
+      }
+      return
+    }
+
+    try {
+      const storedData = JSON.parse(localStorage.getItem(localStorageKey as string) || '[]');
+
+      // Let's temporary find by name as we don't have id 
+      const index = storedData.findIndex((item: any) => item.name === data.name);
+
+      if (index !== -1) {
+        storedData[index] = data;
+        console.log(storedData[index])
+      }
+
+      localStorage.setItem(localStorageKey as string, JSON.stringify(storedData));
+      setShowForm(false)
+      getData();
+      
+      setError('');
+    } catch (error) {
+      setError('Failed to create');
+    }
+    
+  };
+
   useEffect(() => {
     getData()
   }, [])
@@ -87,6 +134,7 @@ export default function useRequestProcessor(url?: string, localStorageKey?: stri
     error,
     showForm,
     createData,
+    updateData,
     setData,
     setShowForm,
     setError
