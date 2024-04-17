@@ -16,6 +16,7 @@ describe('BookListComponent', () => {
             error: null,
             showForm: false, // Add default values for additional properties
             createData: jest.fn(),
+            updateData: jest.fn(),
             setData: jest.fn(),
             setShowForm: jest.fn(),
             setError: jest.fn(),
@@ -30,6 +31,7 @@ describe('BookListComponent', () => {
             error: null,
             showForm: false, // Add default values for additional properties
             createData: jest.fn(),
+            updateData: jest.fn(),
             setData: jest.fn(),
             setShowForm: jest.fn(),
             setError: jest.fn(),
@@ -60,6 +62,7 @@ describe('BookListComponent', () => {
             error: null,
             showForm: false,
             createData: jest.fn(),
+            updateData: jest.fn(),
             setData: jest.fn(),
             setShowForm: jest.fn(),
             setError: jest.fn(),
@@ -80,6 +83,7 @@ describe('BookListComponent', () => {
             error: errorMessage,
             showForm: false,
             createData: jest.fn(),
+            updateData: jest.fn(),
             setData: jest.fn(),
             setShowForm: jest.fn(),
             setError: jest.fn(),

@@ -1,6 +1,5 @@
 import  { useState } from 'react';
 import { IAddBook } from '../interfaces/book.interface';
-import ErrorDisplay from './ErrorDisplay';
 import useRequestProcessor from '../hooks/useRequestProcessor';
 import BookForm from './BookForm';
 
