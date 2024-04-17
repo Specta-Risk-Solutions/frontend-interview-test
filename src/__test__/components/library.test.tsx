@@ -3,6 +3,10 @@ import Library from '@local/components/library';
 import { MemoryRouter as Router } from "react-router-dom";
 
 describe('Library', () => {
+    beforeEach(() => {
+        localStorage.clear();
+    });
+
     it('renders properly', () => {
         render(
             <Router>
@@ -87,7 +91,28 @@ describe('Library', () => {
                 percentageRead: '50',
             }
         ]);
+    });
 
+    it('deletes a book when the delete button is clicked', () => {
+        // Assuming there's a book in the list
+        const books = [
+            {
+                name: 'Book Name',
+                likes: 10,
+                dateSaved: '2021-09-01',
+                percentageRead: 50,
+            },
+        ];
+        localStorage.setItem('books', JSON.stringify(books));
 
+        render(<Library />);
+
+        // Find the delete button and click it
+        const deleteButton = screen.getByTestId("Delete book");
+        fireEvent.click(deleteButton);
+
+        // Check if local storage is empty
+        const savedBooks = JSON.parse(localStorage.getItem('books') || '[]');
+        expect(savedBooks).toEqual([]);
     });
 });

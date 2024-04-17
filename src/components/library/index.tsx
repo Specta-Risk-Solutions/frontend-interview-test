@@ -1,5 +1,6 @@
 import { getBooks, saveBooks } from '@local/utils/localStorage';
 import { FormEvent, useState } from 'react';
+import { MdDelete } from "react-icons/md";
 
 const initialBook = {
     name: '',
@@ -9,7 +10,7 @@ const initialBook = {
 };
 
 export default function LibraryPage() {
-    const books = getBooks();
+    const [books, setBooks] = useState(getBooks());
 
     const [newBook, setNewBook] = useState(initialBook);
     const [showForm, setShowForm] = useState(false);
@@ -36,8 +37,24 @@ export default function LibraryPage() {
         }
         saveBooks([...books, newBook]);
         setNewBook(initialBook);
+        setBooks([...books, newBook]);
         setShowForm(false);
     };
+
+    // delete a book
+    const deleteBook = (index: number) => {
+        // get books
+        const books = getBooks();
+
+        // remove a book from book list using the index
+        books.splice(index, 1);
+
+        // save the rest of the books
+        saveBooks(books);
+
+        // set new books
+        setBooks(books);
+    }
 
     return (
         <>
@@ -140,7 +157,7 @@ export default function LibraryPage() {
             )}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1 gap-3">
                 {books.map((book, index) => (
-                    <div key={index} className="bg-shade hover:bg-primary hover:bg-opacity-5 rounded-xl p-4 mb-4 border border-d-dim dark:border-dim">
+                    <div key={index} className="bg-shade hover:bg-primary hover:bg-opacity-5 rounded-xl p-4 mb-4 border border-d-dim dark:border-dim relative">
                         <h2 className=" text-sm md:text-lg font-bold mb-2 text-primary">{book.name}</h2>
                         <p className='font-light'>
                             <span className='font-normal'>Likes (Reviews):</span> {book.likes}
@@ -151,6 +168,10 @@ export default function LibraryPage() {
                         <p className='font-light'>
                             <span className='font-normal'>Percentage Read:</span> {book.percentageRead}%
                         </p>
+
+                        <button data-testid="Delete book" name='delete' onClick={() => deleteBook(index)} className="btn btn-sm btn-circle absolute top-1 right-2">
+                            <MdDelete className='text-primary' />
+                        </button>
                     </div>
                 ))}
             </div>
