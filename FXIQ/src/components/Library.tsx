@@ -45,8 +45,8 @@ export default function LibraryPage() {
     <div className="container text-white mx-auto">
         <div className='flex items-center justify-between px-3'>
       <h1 className="md:text-3xl  font-bold mt-8 mb-4">My Library</h1>
-      <button className="bg-mustard text-sm text-black font-semibold mt-3 md:px-4 md:py-2 py-1 px-2 rounded" onClick={() => setShowForm(true)}>
-        Add New Book
+      <button className="bg-mustard text-sm text-black font-semibold mt-3 md:px-4 md:py-2 py-1 px-2 rounded" onClick={() => setShowForm(!showForm)}>
+        {!showForm ? 'Add New Book' : 'Close Form'}
       </button>
       </div>
       {showForm && (
@@ -102,7 +102,7 @@ export default function LibraryPage() {
       )}
       {books ? (<div className="grid md:grid-cols-3 grid-cols-1 gap-3">
           {books.map((book:any, index: number) => (
-            <div key={index} className="bg-shade hover:bg-mustard hover:text-black rounded-xl p-4 mb-4">
+            <div key={index} className="bg-shade hover:bg-mustard hover:text-black rounded-xl p-4 mb-4 transition-all">
               <h2 className=" text-sm md:text-lg font-bold mb-2">{book.name}</h2>
               <p>Likes (Reviews): {book.likes}</p>
               <p>Date Saved: {book.dateSaved}</p>
