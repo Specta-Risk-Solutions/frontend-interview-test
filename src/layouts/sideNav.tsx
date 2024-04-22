@@ -1,0 +1,131 @@
+
+import { FaArrowRight } from "react-icons/fa6";
+import clsx from "clsx";
+import { TbLogout } from "react-icons/tb";
+import { IoIosSearch, IoMdHome, IoMdSettings } from "react-icons/io";
+import { MdOutlineMenu } from "react-icons/md";
+import Link from "@local/utils/link";
+import { IoChatbubbleSharp, IoNotifications, IoPeople } from "react-icons/io5";
+import { PiSelectionForegroundFill } from "react-icons/pi";
+import { FaUserCircle } from "react-icons/fa";
+import { MouseEvent } from "react";
+
+export default function SideNav({ isOpen, toggle }: { isOpen: boolean, toggle: () => void }) {
+
+    const closeNav = (e: MouseEvent<HTMLDivElement>) => {
+        if (e.target === e.currentTarget) {
+            toggle();
+        }
+    }
+
+    return (
+        <div onClick={closeNav} className={clsx("md:flex md:flex-col h-screen top-0 z-10",
+            { "fixed bottom-0 left-0 right-0 bg-transparent backdrop-blur-[2px]": isOpen },
+            { " w-1/5 md:w-1/4 sticky": !isOpen })}>
+            <div className={clsx("h-screen py-5 px-5 bg-base-200", { "w-max pt-16": isOpen })}>
+                <p className="font-bold hidden md:block md:italic md:text-2xl text-lg">
+                    {" "}
+                    BOOKSHELF{" "}
+                    <span className="text-primary font-semibold text-3xl">Arena</span>
+                </p>
+                <input
+                    className={clsx("md:block input input-bordered my-5 rounded-3xl w-full", { "hidden": !isOpen })}
+                    placeholder="Search"
+                />
+
+                {!isOpen && (
+                    <div className="flex text-xl gap-3 flex-col">
+                        <MdOutlineMenu onClick={toggle} className="md:hidden" />
+
+                        <IoIosSearch className="md:hidden" />
+                    </div>
+                )}
+
+                <div className="md:text-sm flex flex-col gap-3">
+                    <ul className="menu gap-4 rounded-box px-0">
+                        <li>
+                            <Link to="">
+                                <IoMdHome className="ml-2 md:text-2xl text-lg" />
+                                <p className={clsx("md:block", { "hidden": !isOpen })}>Home </p>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/artfeeds">
+                                <IoPeople className="ml-2 md:text-2xl text-lg" />
+                                <p className={clsx("md:block", { "hidden": !isOpen })}>Art feeds </p>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/articles">
+                                <PiSelectionForegroundFill className="ml-2 md:text-2xl text-lg" />
+                                <p className={clsx("md:block", { "hidden": !isOpen })}>Articles </p>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="/library">
+                                <IoChatbubbleSharp className="ml-2 md:text-2xl text-lg" />
+                                <p className={clsx("md:block", { "hidden": !isOpen })}>Library </p>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="notification">
+                                <IoNotifications className="ml-2 md:text-2xl text-lg" />
+                                <p className={clsx("md:block", { "hidden": !isOpen })}>Notification </p>
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
+
+                <hr className="my-3 hidden md:block border-d-dim dark:border-dim" />
+
+                <div className="text-sm hidden md:block ">
+                    <ul className="menu gap-4 rounded-box px-0">
+                        <li>
+                            <Link to="authors" className="justify-between px-2 py-2">
+                                <p className={clsx("md:block ml-2", { "hidden": !isOpen })}>Followed Authors </p>
+                                <FaArrowRight className="text-lg" />
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="readers" className="justify-between px-2 py-2">
+                                <p className={clsx("md:block ml-2", { "hidden": !isOpen })}>Followed Readers </p>
+                                <FaArrowRight className="text-lg" />
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="teams" className="justify-between px-2 py-2">
+                                <p className={clsx("md:block ml-2", { "hidden": !isOpen })}>My Teams </p>
+                                <FaArrowRight className="text-lg" />
+                            </Link>
+                        </li>
+                    </ul>
+                </div>
+
+                <hr className="my-3 hidden md:block border-d-dim dark:border-dim" />
+
+                <div className="flex flex-col gap-3 md:gap-0">
+                    <ul className="menu gap-4 rounded-box px-0">
+                        <li>
+                            <Link to="settings">
+                                <IoMdSettings className="ml-2 md:text-2xl text-lg" />
+                                <p className={clsx("md:block", { "hidden": !isOpen })}> Setting </p>
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to="profile">
+                                <FaUserCircle className="ml-2 md:text-2xl text-lg" />
+                                <p className={clsx("md:block", { "hidden": !isOpen })}>Saka Buka </p>{" "}
+                            </Link>
+                        </li>
+                        <li>
+                            <button>
+                                <TbLogout className="ml-2 md:text-2xl text-lg" />
+                                <p className={clsx("md:block", { "hidden": !isOpen })}>Logout </p>{" "}
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    )
+}
